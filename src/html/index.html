@@ -4,12 +4,27 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body class="w-100 h-100" style="background-color:white">
+    <header>
+        Regressão Linear aplicada ao movimento do mouse
+    </header>
+    <nav>
+        <label for="numeroMovimentos" class="form-label">Número de movimentos na tela</label>
+        <input type="range" class="form-range" id="numeroMovimentos" onchange="mudouNumeroMovimentos()" min="50" max="1000" value="100">
+    </nav>
+    <section id="containerCanvasDesenhoRegressaoLinear" class="w-100 h-100" onresize="redimensionarCanvasDesenhoRegressaoLinear()">
+        <canvas id="canvasDesenhoRegressaoLinear" style="background-color:yellow"></canvas>
+    </section>
+    <footer>
+        Criado por <a href="https://www.opapagaiorinoceronte.net">Papagaio Rinoceronte</a>
+    </footer>
+
+
 <script>
-            let tamanho_historico_movimentos = 50;
+            let tamanho_historico_movimentos = 100;
             let movimentos = [];
 
             window.addEventListener('load', e => {
-                let canvas = document.getElementById("desenho");
+                let canvas = document.getElementById("canvasDesenhoRegressaoLinear");
                 canvas.width = window.innerWidth;
                 canvas.height = window.innerHeight;
 
@@ -19,16 +34,17 @@
                 window.requestAnimationFrame(animar);
             });
 
-            window.addEventListener('resize', e => {
-                let canvas = document.getElementById("desenho");
+            function redimensionarCanvasDesenhoRegressaoLinear(){
+                let container = document.getElementById("containerCanvasDesenhoRegressaoLinear");
+                let canvas = document.getElementById("canvasDesenhoRegressaoLinear");
                 let backup = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                canvas.width = window.innerWidth
-                canvas.height = window.innerHeight;
+                canvas.width = container.width
+                canvas.height = container.height;
                 window.ctx.fillStyle = "red";
                 setTimeout(()=>{
                     ctx.putImageData(backup, 0, 0);
                 });
-            });
+            }
 
             let propriedades_mouse = [
                 'altKey', // Retorna truese a tecla alt estava pressionada quando o evento do mouse foi disparado
@@ -65,7 +81,7 @@
             });
 
             function animar (){
-                window.ctx = document.getElementById("desenho").getContext('2d');
+                window.ctx = document.getElementById("canvasDesenhoRegressaoLinear").getContext('2d');
                 if (window.ctx){
                     window.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
                     let resultado_regressao = findLineByLeastSquares(movimentos.map(movimento => movimento.clientX),movimentos.map(movimento => movimento.clientY));
@@ -158,8 +174,5 @@
                 return [result_values_x, result_values_y];
             }
     </script>
-    <label for="numeroMovimentos" class="form-label">Número de movimentos na tela</label>
-    <input type="range" class="form-range" id="numeroMovimentos" onchange="mudouNumeroMovimentos()" min="50" max="1000" value="50">
-    <canvas id="desenho" style="background-color:yellow"></canvas>
 </body>
 </html>
