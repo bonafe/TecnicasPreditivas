@@ -68,7 +68,10 @@
                 'which' //O botão sendo pressionado quando o evento do mouse foi disparado
             ];
 
-            window.addEventListener('mousemove', e => {
+            window.addEventListener('mousemove',moveu, { passive: false });
+            window.addEventListener('touchmove',moveu, { passive: false });
+
+            function moveu(e){
                 let registro_mouse = {};
                 for (let propriedade of propriedades_mouse){
                     registro_mouse[propriedade] = e[propriedade];
@@ -78,7 +81,10 @@
                 while (movimentos.length > tamanho_historico_movimentos){
                     movimentos.shift();
                 }
-            });
+
+                e.preventDefault();
+                e.stopImmediatePropagation();
+            }
 
             function animar (){
                 window.ctx = document.getElementById("canvasDesenhoRegressaoLinear").getContext('2d');
