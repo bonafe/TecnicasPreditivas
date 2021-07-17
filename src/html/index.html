@@ -3,9 +3,9 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
-<body class="w-100 h-100" style="background-color:blue">
+<body class="w-100 h-100" style="background-color:white">
 <script>
-            let tamanho_historico_movimentos = 250;
+            let tamanho_historico_movimentos = 50;
             let movimentos = [];
 
             window.addEventListener('load', e => {
@@ -96,7 +96,7 @@
             }
 
 
-
+            #https://dracoblue.net/dev/linear-least-squares-in-javascript/
             function findLineByLeastSquares(values_x, values_y) {
                 var sum_x = 0;
                 var sum_y = 0;
@@ -159,7 +159,7 @@
             }
     </script>
     <label for="numeroMovimentos" class="form-label">Número de movimentos na tela</label>
-    <input type="range" class="form-range" id="numeroMovimentos" onchange="mudouNumeroMovimentos()" min="50" max="1000" value="250">
+    <input type="range" class="form-range" id="numeroMovimentos" onchange="mudouNumeroMovimentos()" min="50" max="1000" value="50">
     <canvas id="desenho" style="background-color:yellow"></canvas>
 </body>
 </html>
